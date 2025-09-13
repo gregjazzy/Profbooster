@@ -191,4 +191,4 @@ Pour toute question ou amélioration, contactez l'équipe de développement.
 ---
 
 **Prof Business Academy** - Transformez votre passion d'enseigner en business prospère 🎯
-# Profbooster
+# Prof Booster

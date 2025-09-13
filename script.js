@@ -432,6 +432,7 @@ document.addEventListener('DOMContentLoaded', function() {
         init3DEffects();
         initExitIntent();
         initScrollMagnet();
+        initScrollEffects();
     }
     
     // Statistiques en temps réel simulées
@@ -441,15 +442,41 @@ document.addEventListener('DOMContentLoaded', function() {
             const signupsElement = document.getElementById('recent-signups');
             
             if (visitorsElement && signupsElement) {
-                // Simulation de visiteurs en temps réel
-                const baseVisitors = 247;
-                const variation = Math.floor(Math.random() * 20) - 10;
-                visitorsElement.textContent = Math.max(200, baseVisitors + variation);
+                // Simulation de visiteurs en temps réel avec variation jour/nuit
+                const currentHour = new Date().getHours();
+                let baseVisitors, variation;
                 
-                // Simulation d'inscriptions récentes
-                const baseSignups = 12;
-                const signupVariation = Math.floor(Math.random() * 6) - 3;
-                signupsElement.textContent = Math.max(8, baseSignups + signupVariation);
+                if (currentHour >= 22 || currentHour <= 6) {
+                    // Nuit (22h-6h) : 6-9 visiteurs
+                    baseVisitors = 7;
+                    variation = Math.floor(Math.random() * 3) - 1;
+                    visitorsElement.textContent = Math.max(6, Math.min(9, baseVisitors + variation));
+                } else {
+                    // Jour (7h-21h) : autour de 24 visiteurs
+                    baseVisitors = 24;
+                    variation = Math.floor(Math.random() * 6) - 3;
+                    visitorsElement.textContent = Math.max(20, Math.min(28, baseVisitors + variation));
+                }
+                
+                // Simulation d'inscriptions récentes - fixe pour toute la session
+                let dailySignups = localStorage.getItem('dailySignups');
+                if (!dailySignups) {
+                    // Générer un nombre aléatoire entre 4 et 12 pour toute la journée
+                    dailySignups = Math.floor(Math.random() * 9) + 4; // 4 à 12
+                    localStorage.setItem('dailySignups', dailySignups);
+                    localStorage.setItem('signupsDate', new Date().toDateString());
+                } else {
+                    // Vérifier si on est toujours le même jour
+                    const storedDate = localStorage.getItem('signupsDate');
+                    const currentDate = new Date().toDateString();
+                    if (storedDate !== currentDate) {
+                        // Nouveau jour, générer un nouveau nombre
+                        dailySignups = Math.floor(Math.random() * 9) + 4;
+                        localStorage.setItem('dailySignups', dailySignups);
+                        localStorage.setItem('signupsDate', currentDate);
+                    }
+                }
+                signupsElement.textContent = dailySignups;
             }
         }
         
@@ -522,12 +549,26 @@ document.addEventListener('DOMContentLoaded', function() {
     function initNotifications() {
         const notificationContainer = document.getElementById('conversion-notifications');
         const notifications = [
-            { name: 'Marie L.', action: 'prof de maths, vient de rejoindre la formation', time: 'Il y a 2 min' },
-            { name: 'Thomas D.', action: 'prof d\'anglais, a téléchargé le guide', time: 'Il y a 5 min' },
-            { name: 'Sophie M.', action: 'prof de physique, vient de s\'inscrire', time: 'Il y a 8 min' },
-            { name: 'Pierre R.', action: 'prof de français, consulte la formation', time: 'Il y a 12 min' },
-            { name: 'Julie B.', action: 'prof d\'espagnol, vient de s\'inscrire', time: 'Il y a 15 min' },
-            { name: 'Antoine C.', action: 'prof de chimie, a rejoint la communauté', time: 'Il y a 18 min' }
+            { name: 'Marie L.', action: 'prof de maths, vient de réserver sa place', time: 'Il y a 2 min' },
+            { name: 'Thomas D.', action: 'prof d\'anglais, consulte les témoignages', time: 'Il y a 4 min' },
+            { name: 'Sophie M.', action: 'prof de physique, a téléchargé le guide', time: 'Il y a 7 min' },
+            { name: 'Pierre R.', action: 'prof de français, vient de s\'inscrire', time: 'Il y a 9 min' },
+            { name: 'Julie B.', action: 'prof d\'espagnol, regarde la méthode', time: 'Il y a 12 min' },
+            { name: 'Antoine C.', action: 'prof de chimie, a rejoint la formation', time: 'Il y a 15 min' },
+            { name: 'Camille T.', action: 'prof de SVT, vient de s\'inscrire', time: 'Il y a 18 min' },
+            { name: 'Lucas M.', action: 'prof de maths, consulte les résultats', time: 'Il y a 21 min' },
+            { name: 'Emma R.', action: 'prof d\'histoire, a téléchargé les ressources', time: 'Il y a 24 min' },
+            { name: 'Nicolas P.', action: 'prof de géographie, vient de rejoindre', time: 'Il y a 27 min' },
+            { name: 'Léa S.', action: 'prof d\'italien, regarde les FAQ', time: 'Il y a 30 min' },
+            { name: 'Maxime B.', action: 'prof de philosophie, vient de s\'inscrire', time: 'Il y a 33 min' },
+            { name: 'Clara D.', action: 'prof d\'allemand, consulte la formation', time: 'Il y a 36 min' },
+            { name: 'Hugo L.', action: 'prof de physique, a réservé sa place', time: 'Il y a 39 min' },
+            { name: 'Manon V.', action: 'prof de musique, vient de rejoindre', time: 'Il y a 42 min' },
+            { name: 'Julien K.', action: 'prof d\'économie, télécharge le guide', time: 'Il y a 45 min' },
+            { name: 'Chloé F.', action: 'prof d\'arts plastiques, s\'inscrit', time: 'Il y a 48 min' },
+            { name: 'Romain G.', action: 'prof de sport, consulte les témoignages', time: 'Il y a 51 min' },
+            { name: 'Anaïs H.', action: 'prof de latin, vient de s\'inscrire', time: 'Il y a 54 min' },
+            { name: 'Florian J.', action: 'prof de technologie, rejoint la formation', time: 'Il y a 57 min' }
         ];
         
         let notificationIndex = 0;
@@ -568,11 +609,22 @@ document.addEventListener('DOMContentLoaded', function() {
             notificationIndex = (notificationIndex + 1) % notifications.length;
         }
         
-        // Afficher une notification toutes les 15 secondes après 10 secondes
+        // Afficher une notification de façon espacée et naturelle
+        function scheduleNextNotification() {
+            // Intervalle aléatoire entre 2 et 5 minutes (120-300 secondes)
+            const randomInterval = (Math.random() * 180 + 120) * 1000;
+            setTimeout(() => {
+                showNotification();
+                scheduleNextNotification(); // Programmer la suivante
+            }, randomInterval);
+        }
+        
+        // Première notification après 30 secondes à 2 minutes
+        const firstDelay = (Math.random() * 90 + 30) * 1000;
         setTimeout(() => {
             showNotification();
-            setInterval(showNotification, 15000);
-        }, 10000);
+            scheduleNextNotification();
+        }, firstDelay);
     }
     
     // Effet 3D sur la carte hero avec le mouvement de la souris
@@ -773,3 +825,57 @@ const dynamicStyles = `
 const styleSheet = document.createElement('style');
 styleSheet.textContent = dynamicStyles;
 document.head.appendChild(styleSheet);
+
+// ===== EFFETS DE SCROLL =====
+
+function initScrollEffects() {
+    // Ajouter la classe fade-in à toutes les sections
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        section.classList.add('fade-in');
+    });
+    
+    // Observer pour les effets de scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+    
+    // Observer toutes les sections
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+    
+    // Effet parallaxe subtil sur le fond géométrique
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.2;
+        
+        // Mise à jour du fond géométrique
+        const body = document.body;
+        if (body && body.style) {
+            body.style.transform = `translateY(${rate}px)`;
+        }
+        
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+    
+    window.addEventListener('scroll', requestTick, { passive: true });
+}
