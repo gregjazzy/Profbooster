@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const buttonText = this.textContent.trim();
             const section = this.closest('section')?.className || 'unknown';
             
-            // Ici vous pouvez ajouter votre code de tracking
+            // Ici tu peux ajouter ton code de tracking
             console.log('CTA clicked:', {
                 text: buttonText,
                 section: section,
@@ -879,3 +879,4 @@ function initScrollEffects() {
     
     window.addEventListener('scroll', requestTick, { passive: true });
 }
+
