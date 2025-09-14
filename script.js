@@ -433,6 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initExitIntent();
         initScrollMagnet();
         initScrollEffects();
+        initProgressDashboard();
     }
     
     // Statistiques en temps réel simulées
@@ -878,5 +879,59 @@ function initScrollEffects() {
     }
     
     window.addEventListener('scroll', requestTick, { passive: true });
+}
+
+// ===== PROGRESS DASHBOARD ANIMATIONS =====
+
+function initProgressDashboard() {
+    // Animation des compteurs métriques
+    function animateCounters() {
+        const metricValues = document.querySelectorAll('.metric-value');
+        
+        metricValues.forEach((element, index) => {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000; // 2 secondes
+            const startDelay = 2000 + (index * 200); // Délai échelonné
+            
+            setTimeout(() => {
+                let current = 0;
+                const increment = target / (duration / 16); // 60fps
+                
+                const counter = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        element.textContent = target;
+                        clearInterval(counter);
+                        
+                        // Effet de pulsation à la fin
+                        element.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            element.style.transform = 'scale(1)';
+                        }, 200);
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 16);
+            }, startDelay);
+        });
+    }
+    
+    // Observer pour déclencher les animations quand la section est visible
+    const dashboardObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Déclencher les animations une seule fois
+                setTimeout(animateCounters, 500);
+                dashboardObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3
+    });
+    
+    const dashboard = document.querySelector('.progress-dashboard');
+    if (dashboard) {
+        dashboardObserver.observe(dashboard);
+    }
 }
 

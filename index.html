@@ -48,9 +48,6 @@
         </div>
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <span>🏆 Expert en Développement d'Activité</span>
-                </div>
                 <h1 class="hero-title">
                     Prof particulier? gagne plus de 
                     <span class="gradient-text">6000 euros par mois</span> et devient libre.
@@ -170,17 +167,95 @@
                     </div>
                 </div>
                 <div class="solution-visual">
-                    <div class="profit-diagram">
-                        <div class="profit-center">
-                            <span>RÉUSSI®</span>
+                    <div class="progress-dashboard">
+                        <!-- Graphique de progression principal -->
+                        <div class="revenue-chart">
+                            <div class="chart-header">
+                                <h3>Progression Revenus</h3>
+                                <span class="chart-period">Sur 24 mois (indicatif)</span>
+                            </div>
+                            <div class="chart-container">
+                                <div class="revenue-curve">
+                                    <!-- SVG pour la courbe stylée -->
+                                    <svg class="curve-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+                                        <defs>
+                                            <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+                                                <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+                                                <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+                                            </linearGradient>
+                                            <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+                                                <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.1" />
+                                            </linearGradient>
+                                        </defs>
+                                        
+                                        <!-- Zone sous la courbe -->
+                                        <path class="curve-area" d="M 0 90 Q 100 70 200 50 T 400 20 L 400 120 L 0 120 Z" fill="url(#areaGradient)"/>
+                                        
+                                        <!-- Courbe principale -->
+                                        <path class="curve-line" d="M 0 90 Q 100 70 200 50 T 400 20" stroke="url(#curveGradient)" stroke-width="3" fill="none"/>
+                                        
+                                        <!-- Points de données -->
+                                        <circle class="curve-point start-point" cx="0" cy="90" r="6"/>
+                                        <circle class="curve-point mid-point" cx="200" cy="50" r="6"/>
+                                        <circle class="curve-point end-point" cx="400" cy="20" r="6"/>
+                                    </svg>
+                                    
+                                    <!-- Labels des points -->
+                                    <div class="curve-labels">
+                                        <div class="curve-label start-label">
+                                            <span class="label-time">Départ</span>
+                                            <span class="label-value">2000€/mois</span>
+                                        </div>
+                                        <div class="curve-label mid-label">
+                                            <span class="label-time">12 mois</span>
+                                            <span class="label-value">4000€/mois</span>
+                                        </div>
+                                        <div class="curve-label end-label">
+                                            <span class="label-time">24 mois</span>
+                                            <span class="label-value">6000€+/mois</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="profit-elements">
-                            <div class="profit-element" style="--delay: 0s">R</div>
-                            <div class="profit-element" style="--delay: 0.2s">E</div>
-                            <div class="profit-element" style="--delay: 0.4s">U</div>
-                            <div class="profit-element" style="--delay: 0.6s">S</div>
-                            <div class="profit-element" style="--delay: 0.8s">S</div>
-                            <div class="profit-element" style="--delay: 1s">I</div>
+
+
+                        <!-- Timeline R.E.U.S.S.I. -->
+                        <div class="method-timeline">
+                            <div class="timeline-header">
+                                <h4>Méthode R.E.U.S.S.I.®</h4>
+                                <div class="timeline-progress">
+                                    <div class="progress-bar"></div>
+                                </div>
+                            </div>
+                            <div class="timeline-steps">
+                                <div class="step-item" data-step="R">
+                                    <div class="step-icon">R</div>
+                                    <span>Respecter</span>
+                                </div>
+                                <div class="step-item" data-step="E">
+                                    <div class="step-icon">E</div>
+                                    <span>Élèves</span>
+                                </div>
+                                <div class="step-item" data-step="U">
+                                    <div class="step-icon">U</div>
+                                    <span>Utiliser</span>
+                                </div>
+                                <div class="step-item" data-step="S">
+                                    <div class="step-icon">S</div>
+                                    <span>Saisir</span>
+                                </div>
+                                <div class="step-item" data-step="S">
+                                    <div class="step-icon">S</div>
+                                    <span>Séduire</span>
+                                </div>
+                                <div class="step-item" data-step="I">
+                                    <div class="step-icon">I</div>
+                                    <span>Intensifier</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -307,7 +382,7 @@
             <div class="about-content">
                 <div class="about-text">
                     <div class="section-badge">Qui suis-je ?</div>
-                    <h2>Expert en Business de Cours Particuliers</h2>
+                    <h2>Grégory Mittelette</h2>
                     <p class="about-intro">
                         Après 10 ans d'expérience, <strong>24 000 heures de cours</strong> et <strong>1 500 élèves accompagnés</strong>, j'ai développé 
                         le système le plus efficace pour <strong>gagner plus de 6000 euros par mois</strong> et <strong>ne jamais manquer d'élèves</strong>.
@@ -520,7 +595,7 @@
             <div class="modal-body">
                 <div class="recognition-message">
                     <p class="recognition-text">
-                        Je te livre ma stratégie de A à Z qui m'a permis de passer de 2000 euros à plus de <span class="highlight-amount">20000 euros par mois</span> en 3 ans.
+                        Je te livre ma stratégie de A à Z qui m'a permis de passer de 2000 euros à plus de <span class="highlight-amount">20000 euros par mois</span> en 2 ans.
                     </p>
                     <a href="#formation" class="modal-cta-btn">Participe à la réunion</a>
                 </div>
